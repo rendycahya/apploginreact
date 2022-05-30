@@ -4,14 +4,15 @@ import qs from 'querystring'
 import { AuthContext } from '../App';
 import { CardImg, Col, Container, Row } from 'reactstrap';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const api = 'http://localhost:3001';
 
-const LoginComp = () => {
+const LoginComp = (props) => {
 
     const {dispatch} = useContext(AuthContext);
+    let navigate = useNavigate();
 
     const initialState = {
         email: "",
@@ -54,6 +55,7 @@ const LoginComp = () => {
                     type: "LOGIN",
                     payload: res.data
                 })
+                navigate("/dashboard")
             }else{
                 setData({
                     ...data,

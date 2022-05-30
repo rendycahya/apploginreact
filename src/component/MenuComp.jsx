@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { Link } from 'react-router-dom';
 import {
     Collapse,
     Navbar,
@@ -6,7 +7,6 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
-    NavLink, 
     NavbarText,
     Button} from 'reactstrap';
 import { AuthContext } from '../App';
@@ -17,6 +17,26 @@ const MenuComp = () => {
 
     const {state, dispatch} = useContext(AuthContext);
 
+    if(!state.isAuthenticated){
+        return(
+            <div>
+                <Navbar className='navbar-dark bg-dark' expand="md">
+                    <NavbarBrand href="/">reactstrap</NavbarBrand>
+                    <NavbarToggler onClick={toggle} />
+                    <Collapse isOpen={isOpen} navbar>
+                    <NavbarText style={{marginLeft: "auto"}}>
+                        <Link to={'/login'}>
+                            <Button>
+                                LOGIN
+                            </Button>
+                        </Link>
+                    </NavbarText>
+                    </Collapse>
+                </Navbar>
+            </div>
+        )
+    }
+
     return (
         <div>
             <Navbar className='navbar-dark bg-dark' expand="md">
@@ -25,17 +45,23 @@ const MenuComp = () => {
                 <Collapse isOpen={isOpen} navbar>
                 <Nav className="mr-auto" navbar>
                     <NavItem>
-                        <NavLink href="/components/">Components</NavLink>
+                        <Link to={'/dashboard'} className='nav-link'>HOME</Link>
+                    </NavItem>
+                </Nav>
+                <Nav className="mr-auto" navbar>
+                    <NavItem>
+                        <Link to={'/transaksi'} className='nav-link'>TRANSAKSI</Link>
                     </NavItem>
                 </Nav>
                 <NavbarText style={{marginLeft: "auto"}}>
-                    <Button color='default' onClick={()=>dispatch({
-                        type: "LOGOUT"
-                    })}>
-                        {state.isAuthenticated && (
-                            <NavLink>LOGOUT</NavLink>
-                        )}
-                    </Button>
+                    <Link to={'/login'}>
+                        <Button color='success' onClick={()=>dispatch({
+                            type: "LOGOUT"
+                        })}>
+                            LOGOUT
+                        </Button>
+                    </Link>
+                    
                 </NavbarText>
                 </Collapse>
             </Navbar>

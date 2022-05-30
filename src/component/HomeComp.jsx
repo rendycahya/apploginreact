@@ -1,10 +1,18 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 import {  Button, Container } from 'reactstrap';
 import { AuthContext } from '../App';
 const HomeComp = () => {
+    let navigate = useNavigate()
+    const {state} = useContext(AuthContext);  
+    
+    useEffect(()=>{
+        if(!state.isAuthenticated){
+            navigate('/login')
+        }
+    },[state,navigate])
 
-    const {state, dispatch} = useContext(AuthContext)
 
     return (
         <div>

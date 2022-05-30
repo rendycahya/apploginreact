@@ -1,9 +1,11 @@
-import { useReducer, createContext, useEffect } from "react";
+import { useReducer, createContext } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import HomeComp from "./component/HomeComp";
 import LoginComp from "./component/LoginComp";
 import MenuComp from "./component/MenuComp";
+import Publik from "./component/Publik";
 import RegisterComp from "./component/RegisterComp";
+import Transaksi from "./component/Transaksi";
 
 //Context
 export const AuthContext = createContext()
@@ -40,24 +42,17 @@ const reducer = (state, action) =>{
 
 
 function App() {
-  let navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  useEffect(()=>{
-    if(!state.isAuthenticated){
-      navigate('/')
-    }if(state.isAuthenticated){
-      navigate('/homepage')
-    }
-  },[state])
 
   return (
     <div>
         <AuthContext.Provider value={{state, dispatch}} >
         <MenuComp/>
           <Routes>
-              <Route path="/" element={<LoginComp/>}/>
-              <Route path="/homepage" element={<HomeComp/>}/>
+              <Route path="/" element={<Publik/>}/>
+              <Route path="/login" element={<LoginComp/>}/>
+              <Route path="/dashboard" element={<HomeComp/>}/>
+              <Route path="/transaksi" element={<Transaksi/>}/>
               <Route path="/register" element={<RegisterComp/>}/>
           </Routes>
         </AuthContext.Provider>
