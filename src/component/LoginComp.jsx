@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import qs from 'querystring'
 import { AuthContext } from '../App';
@@ -11,14 +11,20 @@ const api = 'http://localhost:3001';
 
 const LoginComp = (props) => {
 
-    const {dispatch} = useContext(AuthContext);
-    let navigate = useNavigate();
+    const {state, dispatch} = useContext(AuthContext);
+    let navigate = useNavigate()
+    useEffect(()=>{
+        if(state.isAuthenticated){
+            navigate('/dashboard')
+        }
+    },[state,navigate])
+
 
     const initialState = {
         email: "",
         password: "",
         isSubmitting: false,
-        errorMessage: null
+        errorMessage: null,
     }
 
     const [data, setData] = useState(initialState);
@@ -66,6 +72,10 @@ const LoginComp = (props) => {
         })
 
     }
+
+    // useEffect(()=>{
+    //     if()
+    // })
 
     return (
             <Container>

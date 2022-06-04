@@ -53,6 +53,11 @@ const MenuComp = () => {
                         <Link to={'/transaksi'} className='nav-link'>TRANSAKSI</Link>
                     </NavItem>
                 </Nav>
+                <Nav className="mr-auto" navbar>
+                    <NavItem>
+                        <Link to={'/mahasiswa'} className='nav-link'>MAHASISWA</Link>
+                    </NavItem>
+                </Nav>
                 <NavbarText style={{marginLeft: "auto"}}>
                     <Link to={'/login'}>
                         <Button color='success' onClick={()=>dispatch({
